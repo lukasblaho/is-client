@@ -1,0 +1,12 @@
+export const REQUEST_USERS = 'request_users'
+export const RECIEVE_USERS = 'recieve_users'
+export const SUBMIT_ADD_USER_FORM = 'submit_add_user_form'
+export const SAVE_USER = 'save_user'
+export const ERROR = 'error'
+
+export const CREATE_USER_SUCCESS = 'create_user_success'
+export const CREATE_USER_FAILURE = 'create_user_failure'
+export const FETCH_USERS_SUCCESS = 'fetch_users_success'
+export const FETCH_USERS_FAILURE = 'fetch_users_failure'
+export const FETCH_USER_SUCCESS = 'fetch_user_success'
+export const FETCH_USER_FAILURE = 'fetch_user_failure'

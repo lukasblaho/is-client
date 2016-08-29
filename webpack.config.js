@@ -5,6 +5,7 @@ module.exports = {
   entry: './main.js',
   publicPath: 'http://client.storage_sys.loc',
   output: { path: __dirname, filename: 'bundle.js' },
+  devtool: 'source-map',
   module: {
     preLoaders: [
       {
