@@ -47,6 +47,12 @@ export function getUserFailure(error) {
     }
 }
 
+export function removeUser(id) {
+    return dispatch => user.removeUser()
+        .then()
+        .catch()
+}
+
 export function getUserList() {
     return dispatch => user.fetchUser()
         .then(json => dispatch(fetchUsersSuccess(json)))

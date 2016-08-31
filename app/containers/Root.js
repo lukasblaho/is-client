@@ -9,6 +9,7 @@ import Home from '../components/Home'
 import User from '../components/User/User'
 import AddUser from '../components/User/AddUser'
 import EditUser from '../components/User/EditUser'
+import RemoveUser from '../components/User/RemoveUser'
 import ViewUser from '../components/User/ViewUser'
 import NotFound from '../components/NotFound'
 
@@ -25,6 +26,7 @@ export default class Root extends Component {
                         <Route path="users" component={User}>
                             <Route path="add" component={AddUser}/>
                             <Route path="edit/:id" component={EditUser}/>
+                            <Route path="remove/:id" component={RemoveUser}/>
                             <Route path="view/:id" component={ViewUser}/>
                         </Route>
                     </Route>

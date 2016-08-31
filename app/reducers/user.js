@@ -39,7 +39,7 @@ export function users(state = initialState, action) {
             })
 
         default:
-            return initialState
+            return state
     }
 
 }

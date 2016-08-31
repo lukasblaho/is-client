@@ -14,6 +14,9 @@ export const row = (item) => {
                         <i className="glyphicon glyphicon-pencil"></i> Edit
                     </Link>
                     <Link to={"/users/view/" + item.id} className="btn btn-default">
+                        <i className="glyphicon glyphicon-view"></i> View
+                    </Link>
+                    <Link to={"/users/remove/" + item.id} className="btn btn-default">
                         <i className="glyphicon glyphicon-remove"></i> Delete
                     </Link>
                 </div>

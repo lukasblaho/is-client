@@ -21,5 +21,11 @@ export default {
         return fetch(API_URL_PREFIX + '/v1/user/' + id)
             .then(status)
             .then(response => response.json())
+    },
+
+    removeUser(id) {
+        return fetch(API_URL_PREFIX + '/v1/user/' + id)
+            .then(status)
+            .then(response => response.json())
     }
 }
