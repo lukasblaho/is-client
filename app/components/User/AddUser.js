@@ -1,28 +1,27 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import UserForm from './include/UserForm'
 import {submitAddUserForm} from '../../actions/userAction'
 
-const submit = (values, dispatch) => {
-    return new Promise((resolve, reject) => {
-        if (isValid(values)) {
-            dispatch(submitAddUserForm(values))
-            resolve()
-        } else {
-            reject()
-        }
-    })
-}
-
-const isValid = (values) => {
-    return true;
-}
-
-const User = () => (
+const AddUserTpl = (props) => (
 	<div>
 		<h1>User</h1>
-		<UserForm submit={submit}/>
+		<UserForm {...props}/>
 	</div>
 )
 
-export default User
+const AddUser = connect(
+    state => {
+        return {}
+    },
+    dispatch => {
+        return {
+            onSubmit : (values) => {
+                dispatch(submitAddUserForm(values))
+            }
+        }
+    }
+)(AddUserTpl)
+
+export default AddUser
 

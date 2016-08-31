@@ -6,7 +6,8 @@ export function createUserSuccess(response) {
         type: types.CREATE_USER_SUCCESS,
         payload : response,
         redirect : {
-            url: '/user/view/'+response.data.id
+            /** @TODO - obtain uri from router */
+            url: '/users/view/'+response.data.id
         }
     }
 }

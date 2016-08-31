@@ -1,51 +1,40 @@
 import React from 'react'
 import UserForm from './include/UserForm'
 import {connect} from 'react-redux'
-import {getUser} from '../../actions/userAction'
 import {submitAddUserForm} from '../../actions/userAction'
 
-class EditUser extends React.Component {
-    componentDidMount() {
-        let {dispatch, routeParams} = this.props
-        dispatch(getUser(routeParams.id))
-    }
-
-    render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <h2>Edit User</h2>
-                </div>
-                <UserForm {...this.props} submit={submit}/>
+const EditUserTpl = (props) => {
+    console.log(props)
+    return (
+        <div className="container">
+            <div className="row">
+                <h2>Edit User</h2>
             </div>
-        )
-    }
+            <UserForm {...props}/>
+        </div>
+    )
 }
 
-const submit = (values, dispatch) => {
-    return new Promise((resolve, reject) => {
-        if (isValid(values)) {
-            dispatch(submitAddUserForm(values))
-            resolve()
-        } else {
-            reject()
+const EditUser = connect(
+    (state, ownProp) => {
+        let currentUser = state.users.users[ownProp.routeParams.id]
+        return {
+            initialValues: {
+                id: currentUser.id,
+                firstName: currentUser.firstName,
+                lastName: currentUser.lastName,
+                email: currentUser.email
+            }
         }
-    })
-}
-
-export default connect(state => {
-    let props = {}
-    if (state.users.currentUser) {
-        props = {
-            initialValues : {
-                id: state.users.currentUser.id,
-                firstName: state.users.currentUser.firstName,
-                lastName: state.users.currentUser.lastName,
-                email: state.users.currentUser.email
+    },
+    (dispatch) => {
+        return {
+            onSubmit: (values) => {
+                return dispatch(submitAddUserForm(values))
             }
         }
     }
+)(EditUserTpl)
 
-    return props
-})(EditUser)
+export default EditUser
 
