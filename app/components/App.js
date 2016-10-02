@@ -10,6 +10,7 @@ const App = React.createClass({
                         <ul className="nav nav-pills">
                             <li role="presentation" className="dropdown"><Link to="/">Home</Link></li>
                             <li role="presentation" className="dropdown"><Link to="/users">Users</Link></li>
+                            <li role="presentation" className="dropdown"><Link to="/clients">Clients</Link></li>
                         </ul>
                     </nav>
                 </header>
