@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserForm from './include/UserForm'
-import {submitAddUserForm} from '../../actions/userAction'
+import {submitAddUserForm, USERFORM_TYPE_CREATE} from '../../actions/userAction'
 
 const AddUserTpl = (props) => (
 	<div>
@@ -17,7 +17,7 @@ const AddUser = connect(
     dispatch => {
         return {
             onSubmit : (values) => {
-                dispatch(submitAddUserForm(values))
+                dispatch(submitAddUserForm(values, USERFORM_TYPE_CREATE))
             }
         }
     }

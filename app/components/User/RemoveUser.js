@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {removeUser} from '../../actions/userAction'
+import {Link} from 'react-router'
 
 const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
     return (
@@ -10,7 +11,11 @@ const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
             </div>
             <div className="row">
                 <p>Are you sure to delete user <em>{currentUser.firstName} {currentUser.lastName}</em>?</p>
-                <button onClick={() => onDeleteClick(currentUser.id)} className="btn btn-danger">Delete</button>
+
+                <div className="form-group">
+                    <button onClick={() => onDeleteClick(currentUser.uuid)} className="btn btn-danger">Delete</button>
+                    <Link to='/users' className="btn btn-default">Back</Link>
+                </div>
             </div>
         </div>
     )
@@ -18,8 +23,17 @@ const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
 
 const RemoveUser = connect(
     (state, ownProps) => {
+
+        let currentUser = state.users.list.filter((v) => {
+            return v.uuid == ownProps.routeParams.id
+        }).pop()
+
+        if (!currentUser) {
+            throw "User not found by uuid: " + ownProps.routeParams.id
+        }
+
         return {
-            currentUser: state.users.users[ownProps.params.id]
+            currentUser: currentUser
         }
     },
     dispatch => {

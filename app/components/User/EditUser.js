@@ -1,10 +1,9 @@
 import React from 'react'
 import UserForm from './include/UserForm'
 import {connect} from 'react-redux'
-import {submitAddUserForm} from '../../actions/userAction'
+import {submitAddUserForm, USERFORM_TYPE_UPDATE} from '../../actions/userAction'
 
 const EditUserTpl = (props) => {
-    console.log(props)
     return (
         <div className="container">
             <div className="row">
@@ -17,10 +16,17 @@ const EditUserTpl = (props) => {
 
 const EditUser = connect(
     (state, ownProp) => {
-        let currentUser = state.users.users[ownProp.routeParams.id]
+        let currentUser = state.users.list.filter((v) => {
+            return v.uuid == ownProp.routeParams.id
+        }).pop()
+
+        if (!currentUser) {
+            throw "Client not found by uuid: " + ownProp.routeParams.id
+        }
+
         return {
             initialValues: {
-                id: currentUser.id,
+                id: currentUser.uuid,
                 firstName: currentUser.firstName,
                 lastName: currentUser.lastName,
                 email: currentUser.email
@@ -30,7 +36,7 @@ const EditUser = connect(
     (dispatch) => {
         return {
             onSubmit: (values) => {
-                return dispatch(submitAddUserForm(values))
+                return dispatch(submitAddUserForm(values, USERFORM_TYPE_UPDATE))
             }
         }
     }

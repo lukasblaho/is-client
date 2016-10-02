@@ -3,11 +3,12 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import {head} from '../Common/TableHead'
 import {tableBody} from '../Common/TableBody'
+import {row as userRow} from './include/UserListTableRow'
 import {tableList} from '../Common/TableList'
 import {getUserList} from '../../actions/userAction'
 
 const ListUser = React.createClass({
-    componentDidMount()
+    componentWillMount()
     {
         let {dispatch} = this.props
         dispatch(getUserList())
@@ -16,16 +17,23 @@ const ListUser = React.createClass({
     render () {
         let {headerKeys, users} = this.props
 
-        var TableList = tableList(head(headerKeys), tableBody(users))
+        const rows = []
+        users.forEach((user) => {
+            rows.push(userRow(user))
+        })
+
+        var TableList = tableList(head(headerKeys), tableBody(rows))
 
         return (
             <div className="container">
                 <div className="row show-grid">
-                    <h2>List User</h2>
+                    <h2>List of users</h2>
                 </div>
 
                 <div className="row">
-                    <Link className="btn btn-primary" to="/users/add">Add nex user</Link>
+                    <div className="button-group">
+                        <Link className="btn btn-primary" to="/users/add">Add new user</Link>
+                    </div>
                     <TableList/>
                 </div>
             </div>
@@ -34,6 +42,6 @@ const ListUser = React.createClass({
 })
 
 export default connect(state => ({
-    users: state.users.users,
-    headerKeys: ['#', 'First name', 'Last name', 'Email', 'Action']
+    users: state.users.list,
+    headerKeys: ['First name', 'Last name', 'Email', 'Action']
 }))(ListUser)

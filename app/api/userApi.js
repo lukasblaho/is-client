@@ -4,8 +4,25 @@ import {userCreateSuccess, userCreateFailure} from '../actions/userAction'
 export default {
     createUser(values) {
         return fetch(API_URL_PREFIX + '/v1/user', {
-            method: 'post',
-            body: values
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            method: "POST",
+            body: JSON.stringify(values)
+        })
+            .then(status)
+            .then(response => response.json())
+    },
+
+    updateUser(values) {
+        return fetch(API_URL_PREFIX + '/v1/user', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            method: "PUT",
+            body: JSON.stringify(values)
         })
             .then(status)
             .then(response => response.json())
@@ -24,7 +41,9 @@ export default {
     },
 
     removeUser(id) {
-        return fetch(API_URL_PREFIX + '/v1/user/' + id)
+        return fetch(API_URL_PREFIX + '/v1/user/' + id, {
+            method: "DELETE"
+        })
             .then(status)
             .then(response => response.json())
     }

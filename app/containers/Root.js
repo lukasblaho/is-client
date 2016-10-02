@@ -6,6 +6,9 @@ import {syncHistoryWithStore} from 'react-router-redux'
 
 import App from '../components/App'
 import Home from '../components/Home'
+import NotFound from '../components/NotFound'
+
+/* user */
 import User from '../components/User/User'
 import AddUser from '../components/User/AddUser'
 import EditUser from '../components/User/EditUser'
