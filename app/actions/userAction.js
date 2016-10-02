@@ -1,6 +1,7 @@
 import user from '../api/userApi'
 import * as types from '../constants/actionTypes'
-import {User} from '../model/user/user'
+import Response from '../api/response'
+import UserCollection from '../model/user/UserCollection'
 
 export function createUserSuccess(response) {
     return {
@@ -39,9 +40,17 @@ export function updateUserFailure(error) {
 }
 
 export function fetchUsersSuccess(response) {
+
+    var payload = {}
+
+    if (response.isOK()) {
+        var responseData = response.getPayload()
+        payload.userCollection = UserCollection.fromArray(responseData);
+    }
+
     return {
-        type: types.FETCH_USERS_SUCCESS,
-        payload: response
+        type: types.FETCH_USERS_SUCCESSFULLY,
+        payload: payload
     }
 }
 
@@ -54,7 +63,7 @@ export function fetchUsersFailure(error) {
 
 export function getUserSuccess(response) {
     return {
-        type: types.FETCH_USER_SUCCESS,
+        type: types.FETCH_USER_SUCCESSFULLY,
         payload: response
     }
 }
@@ -90,12 +99,13 @@ export function removeUserFailure() {
 export function removeUser(id) {
     return dispatch => user.removeUser(id)
         .then(json => dispatch(removeUserSuccess(id)))
-        .catch(error => dispatch(removeUserFailure()))
+        .catch(error => console.log(error))
+        // .catch(error => dispatch(removeUserFailure()))
 }
 
 export function getUserList() {
     return dispatch => user.fetchUser()
-        .then(json => dispatch(fetchUsersSuccess(json)))
+        .then(json => dispatch((fetchUsersSuccess(Response.parseJsonResponse(json)))))
         .catch(error => dispatch(fetchUsersFailure(error)))
 }
 

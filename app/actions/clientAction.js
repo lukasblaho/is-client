@@ -35,7 +35,7 @@ export function fetchClientsFailure(error) {
 
 export function getUserSuccess(response) {
     return {
-        type: types.FETCH_USER_SUCCESS,
+        type: types.FETCH_USER_SUCCESSFULLY,
         payload: response
     }
 }

@@ -10,10 +10,10 @@ const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
                 <h2>Remove User</h2>
             </div>
             <div className="row">
-                <p>Are you sure to delete user <em>{currentUser.firstName} {currentUser.lastName}</em>?</p>
+                <p>Are you sure to delete user <em>{currentUser.getFirstName()} {currentUser.getLastName()}</em>?</p>
 
                 <div className="form-group">
-                    <button onClick={() => onDeleteClick(currentUser.uuid)} className="btn btn-danger">Delete</button>
+                    <button onClick={() => onDeleteClick(currentUser.getId())} className="btn btn-danger">Delete</button>
                     <Link to='/users' className="btn btn-default">Back</Link>
                 </div>
             </div>
@@ -23,14 +23,7 @@ const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
 
 const RemoveUser = connect(
     (state, ownProps) => {
-
-        let currentUser = state.users.list.filter((v) => {
-            return v.uuid == ownProps.routeParams.id
-        }).pop()
-
-        if (!currentUser) {
-            throw "User not found by uuid: " + ownProps.routeParams.id
-        }
+        let currentUser = state.users.list.find(ownProps.routeParams.id)
 
         return {
             currentUser: currentUser

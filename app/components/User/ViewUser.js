@@ -5,21 +5,16 @@ const ViewUserTpl = ({currentUser}) => (
     <div>
         <h1>View User</h1>
         <dl>
-            <dt>Name:</dt> <dd>{currentUser.firstName}</dd>
-            <dt>Last name:</dt> <dd>{currentUser.lastName}</dd>
+            <dt>Name:</dt> <dd>{currentUser.getFirstName()}</dd>
+            <dt>Last name:</dt> <dd>{currentUser.getLastName()}</dd>
         </dl>
     </div>
 )
 
 var ViewUser = connect(
     (state, ownProps) => {
-        let currentUser = state.users.list.filter((v) => {
-            return v.uuid == ownProps.routeParams.id
-        }).pop()
 
-        if (!currentUser) {
-            throw "User not found by uuid: " + ownProps.routeParams.id
-        }
+        let currentUser = state.users.list.find(ownProps.routeParams.id)
 
         return {
             currentUser : currentUser

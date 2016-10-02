@@ -16,20 +16,14 @@ const EditUserTpl = (props) => {
 
 const EditUser = connect(
     (state, ownProp) => {
-        let currentUser = state.users.list.filter((v) => {
-            return v.uuid == ownProp.routeParams.id
-        }).pop()
-
-        if (!currentUser) {
-            throw "Client not found by uuid: " + ownProp.routeParams.id
-        }
+        let currentUser = state.users.list.find(ownProp.routeParams.id)
 
         return {
             initialValues: {
-                id: currentUser.uuid,
-                firstName: currentUser.firstName,
-                lastName: currentUser.lastName,
-                email: currentUser.email
+                id: currentUser.getId(),
+                firstName: currentUser.getFirstName(),
+                lastName: currentUser.getLastName(),
+                email: currentUser.getEmail()
             }
         }
     },

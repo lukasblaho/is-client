@@ -1,77 +1,58 @@
 import * as types from '../constants/actionTypes'
+import UserCollection from '../model/user/UserCollection'
+import User from '../model/user/User'
 
 const initialState = {
-    list: [],
+    list: new UserCollection(),
     isFetching: false
 }
 
 export function users(state = initialState, action) {
     switch (action.type) {
-        case types.REQUEST_USERS:
-            return Object.assign({}, state, {
-                isFetching: true
-            })
-
-        case types.RECIEVE_USERS:
-            return Object.assign({}, state, {
-                list: action.payload.data,
-                isFetching: false
-            })
-
-        case types.SUBMIT_ADD_USER_FORM:
-            return Object.assign({}, state, {})
-
         case types.CREATE_USER_SUCCESSFULLY:
             let list = state.list;
-            list.push(action.payload.data)
+            let user = User.createFromObject(action.payload.data)
+            list.add(user)
 
             return Object.assign({}, state, {
                 list: list
             })
 
-        case types.FETCH_USERS_SUCCESS:
+        case types.FETCH_USERS_SUCCESSFULLY:
             return Object.assign({}, state, {
-                list: action.payload.data
+                list: action.payload.userCollection
             })
 
         case types.UPDATE_USER_SUCCESSFULLY:
-            let updatedUser = action.payload.data
-            var list = state.list
+            let userData = action.payload.data
+            let updatedUser = User.createFromObject(userData)
 
-            list.forEach((user, index) => {
-                if (user.uuid == updatedUser.uuid) {
-                    list[index] = updatedUser
-                }
-            })
+            var list = state.list
+            list.add(updatedUser)
 
             return Object.assign({}, state, {
                 list: list
             })
 
-        case types.FETCH_USER_SUCCESS:
+        case types.FETCH_USER_SUCCESSFULLY:
             return Object.assign({}, state, {
                 currentUser: action.payload.data
             })
 
         case types.REMOVE_USER_SUCCESSFULLY:
-            let removedUser = action.payload.data
-            var list = state.list;
+            let userId = action.payload.data.id
 
-            list.forEach((user, index) => {
-                if (user.uuid == removedUser.id) {
-                    delete list[index]
-                }
-            })
+            var list = Object.assign(Object.create(state.list), state.list)
+
+            /** @TODO */
+            //list.remove(userId)
 
             return Object.assign({}, state, {
-                currentUser: removedUser,
                 list: list
             })
 
         case types.REMOVE_USER_FAILURE:
-            return Object.assign({}, state, {
-                currentUser: action.payload.data
-            })
+            return Object.assign({}, state, {})
 
         default:
             return state
