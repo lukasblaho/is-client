@@ -99,8 +99,7 @@ export function removeUserFailure() {
 export function removeUser(id) {
     return dispatch => user.removeUser(id)
         .then(json => dispatch(removeUserSuccess(id)))
-        .catch(error => console.log(error))
-        // .catch(error => dispatch(removeUserFailure()))
+        .catch(error => dispatch(removeUserFailure()))
 }
 
 export function getUserList() {

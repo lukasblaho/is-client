@@ -4,14 +4,13 @@ export default class Response {
         self._response = jsonResponse
 
         return self
-
     }
 
-    isOK() {
-        return this._response.code == 200
+    isOK() {console.log()
+        return this._response.statusCode == 200
     }
 
     getPayload() {
-        return this._response.data
+        return this._response.payload
     }
 }

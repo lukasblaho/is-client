@@ -19,8 +19,14 @@ export function users(state = initialState, action) {
             })
 
         case types.FETCH_USERS_SUCCESSFULLY:
+
+            var list = new UserCollection
+            if (action.payload.userCollection) {
+                list = action.payload.userCollection
+            }
+
             return Object.assign({}, state, {
-                list: action.payload.userCollection
+                list: list
             })
 
         case types.UPDATE_USER_SUCCESSFULLY:

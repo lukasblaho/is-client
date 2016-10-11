@@ -33,7 +33,7 @@ export default class UserCollection extends ArrayCollection {
 
     findByEmail(email) {
         return this._data.filter((item) => {
-            return item.getEmail() == id
+            return item.getEmail() == email
         }).pop()
     }
 
