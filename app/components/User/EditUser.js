@@ -14,7 +14,7 @@ const EditUserTpl = (props) => {
     )
 }
 
-const EditUser = connect(
+export default  connect(
     (state, ownProp) => {
         let currentUser = state.users.list.find(ownProp.routeParams.id)
 
@@ -29,12 +29,9 @@ const EditUser = connect(
     },
     (dispatch) => {
         return {
-            onSubmit: (values) => {
-                return dispatch(submitAddUserForm(values, USERFORM_TYPE_UPDATE))
-            }
+            onSubmit: values =>
+                dispatch(submitAddUserForm(values, USERFORM_TYPE_UPDATE))
         }
     }
 )(EditUserTpl)
-
-export default EditUser
 

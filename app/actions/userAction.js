@@ -11,7 +11,7 @@ export function createUserSuccess(response) {
         payload : payload,
         redirect : {
             /** @TODO - obtain uri from router */
-            url: '/users/view/'+ payload.uuid
+            url: '/users/view/' + payload.uuid
         }
     }
 }
@@ -24,12 +24,14 @@ export function createUserFailure(error) {
 }
 
 export function updateUserSuccess(response) {
+    const payload = response.getPayload()
+
     return {
         type: types.UPDATE_USER_SUCCESSFULLY,
-        payload : response,
+        payload : payload,
         redirect : {
             /** @TODO - obtain uri from router */
-            url: '/users/view/'+response.data.uuid
+            url: '/users/view/' + payload.uuid
         }
     }
 }

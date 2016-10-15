@@ -29,7 +29,7 @@ export function users(state = initialState, action) {
             })
 
         case types.UPDATE_USER_SUCCESSFULLY:
-            let userData = action.payload.data
+            let userData = action.payload
             let updatedUser = User.createFromObject(userData)
 
             var list = state.list
