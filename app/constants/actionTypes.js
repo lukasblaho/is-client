@@ -1,8 +1,4 @@
-export const REQUEST_USERS = 'request_users'
-export const RECIEVE_USERS = 'recieve_users'
-export const SUBMIT_ADD_USER_FORM = 'submit_add_user_form'
-export const SAVE_USER = 'save_user'
-export const ERROR = 'error'
+
 
 export const CREATE_USER_SUCCESSFULLY = 'create_user_success'
 export const CREATE_USER_FAILURE = 'create_user_failure'

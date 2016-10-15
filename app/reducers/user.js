@@ -11,7 +11,7 @@ export function users(state = initialState, action) {
     switch (action.type) {
         case types.CREATE_USER_SUCCESSFULLY:
             let list = state.list;
-            let user = User.createFromObject(action.payload.data)
+            let user = User.createFromObject(action.payload)
             list.add(user)
 
             return Object.assign({}, state, {
@@ -19,7 +19,6 @@ export function users(state = initialState, action) {
             })
 
         case types.FETCH_USERS_SUCCESSFULLY:
-
             var list = new UserCollection
             if (action.payload.userCollection) {
                 list = action.payload.userCollection

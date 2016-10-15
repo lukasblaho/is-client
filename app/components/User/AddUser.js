@@ -10,18 +10,15 @@ const AddUserTpl = (props) => (
 	</div>
 )
 
-const AddUser = connect(
+export default connect(
     state => {
         return {}
     },
     dispatch => {
         return {
-            onSubmit : (values) => {
+            onSubmit : values =>
                 dispatch(submitAddUserForm(values, USERFORM_TYPE_CREATE))
-            }
         }
     }
 )(AddUserTpl)
-
-export default AddUser
 

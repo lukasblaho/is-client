@@ -4,12 +4,14 @@ import Response from '../api/response'
 import UserCollection from '../model/user/UserCollection'
 
 export function createUserSuccess(response) {
+    const payload =  response.getPayload()
+
     return {
         type: types.CREATE_USER_SUCCESSFULLY,
-        payload : response,
+        payload : payload,
         redirect : {
             /** @TODO - obtain uri from router */
-            url: '/users/view/'+response.data.uuid
+            url: '/users/view/'+ payload.uuid
         }
     }
 }
@@ -104,7 +106,8 @@ export function removeUser(id) {
 
 export function getUserList() {
     return dispatch => user.fetchUser()
-        .then(json => dispatch((fetchUsersSuccess(Response.parseJsonResponse(json)))))
+        .then(json => Response.parseJsonResponse(json))
+        .then(response => dispatch((fetchUsersSuccess(response))))
         .catch(error => dispatch(fetchUsersFailure(error)))
 }
 
@@ -122,12 +125,14 @@ export function submitAddUserForm(values, type) {
         default:
         case USERFORM_TYPE_CREATE:
             return dispatch => user.createUser(values)
-                .then(json => dispatch(createUserSuccess(json)))
+                .then(json => Response.parseJsonResponse(json))
+                .then(response => dispatch(createUserSuccess(response)))
                 .catch(error => dispatch(createUserFailure(error)))
 
         case USERFORM_TYPE_UPDATE:
             return dispatch => user.updateUser(values)
-                .then(json => dispatch(updateUserSuccess(json)))
+                .then(json => Response.parseJsonResponse(json))
+                .then(response => dispatch(updateUserSuccess(response)))
                 .catch(error => dispatch(updateUserFailure(error)))
     }
 }
