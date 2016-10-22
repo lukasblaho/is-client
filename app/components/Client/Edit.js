@@ -5,12 +5,12 @@ import {submitAddUserForm} from '../../actions/userAction'
 
 const EditClientTpl = (props) => {
 
-    const {initialValues} = props
+    const {currentClient} = props
 
     return (
         <div className="container">
             <div className="row">
-                <h2>Edit client {initialValues.firstName} {initialValues.lastName}</h2>
+                <h2>Edit client {currentClient.getNumber()} {currentClient.getName()}</h2>
             </div>
             <UserForm {...props}/>
         </div>
@@ -19,20 +19,14 @@ const EditClientTpl = (props) => {
 
 const EditClient = connect(
     (state, ownProp) => {
-        const currentClient = state.clients.list.filter((v) => {
-            return v.id == ownProp.routeParams.id
-        }).pop()
-
-        if (!currentClient) {
-            throw "Client not found by id: " + ownProp.routeParams.id
-        }
+        const currentClient = state.clientList.get(ownProp.routeParams.id)
 
         return {
             initialValues: {
-                id: currentClient.id,
-                firstName: currentClient.firstName,
-                lastName: currentClient.lastName,
-                email: currentClient.email
+                id: currentClient.getId(),
+                number: currentClient.getNumber(),
+                name: currentClient.getName(),
+                quality: currentClient.getQuality(),
             }
         }
     },

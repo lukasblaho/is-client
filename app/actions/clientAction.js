@@ -1,5 +1,7 @@
 import client from '../api/clientApi'
 import * as types from '../constants/actionTypes'
+import Response from '../api/response'
+import ClientCollection from '../model/client/ClientCollection'
 
 export function createClientSuccessfully(response) {
     return {
@@ -20,9 +22,15 @@ export function createClientFailure(error) {
 }
 
 export function fetchClientsSuccessfully(response) {
+    const payload = {}
+
+    if (response.isOK()) {
+        payload.clientCollection = ClientCollection.fromArray(response.getPauload())
+    }
+
     return {
         type: types.FETCH_CLIENTS_SUCCESSFULLY,
-        payload: response
+        payload: payload
     }
 }
 
@@ -65,7 +73,8 @@ export function removeClient(id) {
 
 export function getClientsList() {
     return dispatch => client.fetchClients()
-        .then(json => dispatch(fetchClientsSuccessfully(json)))
+        .then(json => Response.parseJsonResponse(json))
+        .then(response => dispatch(fetchClientsSuccessfully(response)))
         .catch(error => dispatch(fetchClientsFailure(error)))
 }
 

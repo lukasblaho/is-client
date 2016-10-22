@@ -1,10 +1,18 @@
 import React, {Component} from 'react'
-import {reduxForm} from 'redux-form'
+import {reduxForm, Field} from 'redux-form'
+
+const renderInput = field =>
+    <div className="col-sm-10">
+        <input className="form-control" type={field.type} placeholder={field.placeholder} {...field.input} />
+        {field.meta.touched && field.meta.error && <span>{field.meta.error}</span>}
+    </div>
+
+const renderHidden = field =>
+    <input className="form-control" type="hidden" name="" {...field.input} />
+
 
 const ClientFormTpl = (props) => {
     const {
-        fields: {id, number, name, quality, rejection, sellingPrice, eppp, epppot, rejectedPalettePrice,
-            transportationCosts, quantity, licenseFee, stackedPalettePrice},
         handleSubmit,
         submitting
     } = props
@@ -13,96 +21,56 @@ const ClientFormTpl = (props) => {
         <div className="row">
             <div className="col-md-12">
                 <form onSubmit={handleSubmit} className="form-horizontal">
-                    <input className="form-control" type="hidden" {...id}/>
+                    <Field name="id" type="hidden" component={renderHidden} />
 
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Number</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Number" {...number}/>
-                        </div>
-                        {number.touched && number.error && <span>{number.error}</span>}
+                        <Field name="number" type="text" component={renderInput} placeholder="Number" />
+
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Name</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Name" {...name}/>
-                        </div>
+                        <Field name="name" type="text" component={renderInput} placeholder="Name" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Quality</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Quality" {...quality}/>
-                        </div>
+                        <Field name="quality" type="text" component={renderInput} placeholder="Quality" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Rejection (%)</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Rejection" {...rejection}/>
-                        </div>
+                        <Field name="rejection" type="text" component={renderInput} placeholder="Rejection" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Selling price</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Selling price" {...sellingPrice}/>
-                        </div>
+                        <Field name="sellingPrice" type="text" component={renderInput} placeholder="Selling price" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Price per palette</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Price per palette" {...eppp}/>
-                        </div>
+                        <Field name="eppp" type="text" component={renderInput} placeholder="Price per palette" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Price per palette overtime</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Price per palette overtime"
-                                   {...epppot}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Rejection (%)</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Rejection" {...rejection}/>
-                        </div>
+                        <Field name="epppot" type="text" component={renderInput}
+                               placeholder="Price per palette overtime" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Transportation cost</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Transportation cost"
-                                   {...transportationCosts}/>
-                        </div>
+                        <Field name="transportationCosts" type="text" component={renderInput}
+                               placeholder="Transportation cost" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Rejected palette price</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Rejected palette price"
-                                   {...rejectedPalettePrice}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Rejection (%)</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Rejection" {...rejection}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Quantity</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Quantity" {...quantity}/>
-                        </div>
+                        <Field name="rejectedPalettePrice" type="text" component={renderInput}
+                               placeholder="Rejected palette price" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">License fee</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="License fee" {...licenseFee}/>
-                        </div>
+                        <Field name="licenseFee" type="text" component={renderInput} placeholder="License fee" />
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Stacked palette price</label>
-                        <div className="col-sm-10">
-                            <input className="form-control" type="text" placeholder="Stacked palette price"
-                                   {...stackedPalettePrice}/>
-                        </div>
+                        <Field name="stackedPalettePrice" type="text" component={renderInput}
+                               placeholder="Stacked palette price" />
                     </div>
                     <div className="form-group">
                         <div className="col-md-offset-2 col-md-10">
@@ -140,10 +108,7 @@ const validate = values => {
 
 const ClientForm = reduxForm({
     form: 'client',
-    fields: ['id', 'number', 'name', 'quality', 'rejection', 'sellingPrice', 'eppp', 'epppot', 'rejectedPalettePrice',
-        'transportationCosts', 'quantity', 'licenseFee', 'stackedPalettePrice'],
     validate,
-    //asyncValidate,
 })(ClientFormTpl);
 
 export default ClientForm;

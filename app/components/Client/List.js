@@ -40,6 +40,6 @@ const ListClient = React.createClass({
 })
 
 export default connect(state => ({
-    clientsList: state.clients.list,
-    headerKeys: ['#', 'First name', 'Last name', 'Email', 'Action']
+    clientsList: state.clientList,
+    headerKeys: ['Number', 'Name', 'Quality']
 }))(ListClient)

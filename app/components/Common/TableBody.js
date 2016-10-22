@@ -5,7 +5,7 @@ export const tableBody = (rows) => {
         return (
             <tbody>
                 <tr><td colSpan="5">
-                    There no users to show ;)
+                    There no users to show
                 </td></tr>
             </tbody>
         )
