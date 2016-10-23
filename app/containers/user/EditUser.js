@@ -1,7 +1,8 @@
 import React from 'react'
-import UserForm from './include/UserForm'
+import UserForm from '../../components/User/include/UserForm'
 import {connect} from 'react-redux'
-import {submitAddUserForm, USERFORM_TYPE_UPDATE} from '../../actions/userAction'
+import {submitAddUserForm, USERFORM_TYPE_UPDATE} from '../../store/user/action'
+import {getUserById} from '../../store/user/reducer'
 
 const EditUserTpl = (props) => {
     return (
@@ -16,7 +17,7 @@ const EditUserTpl = (props) => {
 
 export default  connect(
     (state, ownProp) => {
-        let currentUser = state.users.list.find(ownProp.routeParams.id)
+        let currentUser = getUserById(state, ownProp.routeParams.id)
 
         return {
             initialValues: {

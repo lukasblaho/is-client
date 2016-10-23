@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeUser} from '../../actions/userAction'
+import {removeUser} from '../../store/user/action'
 import {Link} from 'react-router'
+import {getUserById} from '../../store/user/reducer'
 
 const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
     return (
@@ -23,7 +24,7 @@ const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
 
 const RemoveUser = connect(
     (state, ownProps) => {
-        let currentUser = state.users.list.find(ownProps.routeParams.id)
+        let currentUser = getUserById(state, ownProps.routeParams.id)
 
         return {
             currentUser: currentUser

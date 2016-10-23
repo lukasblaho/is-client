@@ -1,6 +1,6 @@
 export default class Client {
     getId() {
-        return this._uuid
+        return this._id
     }
 
     getNumber() {
@@ -16,13 +16,14 @@ export default class Client {
     }
 
     static createFromObject(client) {
-        let {uuid, number, name, rejection, sellingPrice, eppp, epppot,
+        let {id, number, name, quality, rejection, sellingPrice, eppp, epppot,
             transportationCost, rejectedPalettePrice, licenseFee, stackedPalettePrice} = client
 
         var self = new this
-        self._uuid = uuid
+        self._id = id
         self._number = number
         self._name = name
+        self._quality = quality
         self._rejection = rejection
         self._sellingPrice = sellingPrice
         self._eppp = eppp

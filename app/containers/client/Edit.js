@@ -1,7 +1,8 @@
 import React from 'react'
-import UserForm from './include/ClientForm'
+import UserForm from '../../components/Client/include/ClientForm'
 import {connect} from 'react-redux'
-import {submitAddUserForm} from '../../actions/userAction'
+import {submitAddUserForm} from '../../store/client/action'
+import {getClientById} from '../../store/client/reducer'
 
 const EditClientTpl = (props) => {
 
@@ -19,7 +20,7 @@ const EditClientTpl = (props) => {
 
 const EditClient = connect(
     (state, ownProp) => {
-        const currentClient = state.clientList.get(ownProp.routeParams.id)
+        const currentClient = getClientById(state, ownProp.routeParams.id)
 
         return {
             initialValues: {
@@ -27,7 +28,8 @@ const EditClient = connect(
                 number: currentClient.getNumber(),
                 name: currentClient.getName(),
                 quality: currentClient.getQuality(),
-            }
+            },
+            currentClient
         }
     },
     (dispatch) => {

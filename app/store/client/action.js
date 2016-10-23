@@ -1,7 +1,7 @@
-import client from '../api/clientApi'
-import * as types from '../constants/actionTypes'
-import Response from '../api/response'
-import ClientCollection from '../model/client/ClientCollection'
+import client from '../../api/clientApi'
+import * as types from '../../constants/actionTypes'
+import Response from '../../api/response'
+import ClientCollection from '../../model/client/ClientCollection'
 
 export function createClientSuccessfully(response) {
     return {
@@ -21,11 +21,11 @@ export function createClientFailure(error) {
     }
 }
 
-export function fetchClientsSuccessfully(response) {
+export function fetchClientsSuccessfully(response) { console.log(response)
     const payload = {}
 
     if (response.isOK()) {
-        payload.clientCollection = ClientCollection.fromArray(response.getPauload())
+        payload.clientCollection = ClientCollection.fromArray(response.getPayload())
     }
 
     return {
@@ -71,7 +71,7 @@ export function removeClient(id) {
         .catch(() => dispatch(removeClientFailure()))
 }
 
-export function getClientsList() {
+export function fetchClientsList() {
     return dispatch => client.fetchClients()
         .then(json => Response.parseJsonResponse(json))
         .then(response => dispatch(fetchClientsSuccessfully(response)))
@@ -86,6 +86,6 @@ export function getClient(id) {
 
 export function submitAddClientForm(values) {
     return dispatch => client.createClient(values)
-        .then(json => dispatch(createClientSuccessfully(json)))
+        .then(response => dispatch(createClientSuccessfully(response)))
         .catch(error => dispatch(createClientFailure(error)))
 }

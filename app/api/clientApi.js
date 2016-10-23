@@ -1,14 +1,26 @@
 import {API_URL_PREFIX} from '../config'
-import {userCreateSuccess, userCreateFailure} from '../actions/userAction'
+import {userCreateSuccess, userCreateFailure} from '../store/client/action'
+import Response from './response'
 
 export default {
     createClient(values) {
         return fetch(API_URL_PREFIX + '/v1/client', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
             method: 'post',
-            body: values
+            body: JSON.stringify(values)
         })
             .then(status)
-            .then(response => response.json())
+            .then(response => {
+                response = Response.parseJsonResponse(response.json())
+
+                if (response.valid())
+                {
+                    return response
+                }
+            })
     },
 
     editClients(values) {
@@ -37,6 +49,6 @@ export default {
             method: 'delete'
         })
             .then(status)
-            .then(response => response.json())
+            .then(response => Response.parseJsonResponse(response.json()))
     }
 }

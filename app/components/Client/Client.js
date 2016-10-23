@@ -1,5 +1,5 @@
 import React from 'react'
-import ListClient from './List'
+import ListClient from '../../containers/client/List'
 
 const Client = React.createClass({
     render () {

@@ -1,6 +1,6 @@
-import * as types from '../constants/actionTypes'
-import UserCollection from '../model/user/UserCollection'
-import User from '../model/user/User'
+import * as types from '../../constants/actionTypes'
+import UserCollection from '../../model/user/UserCollection'
+import User from '../../model/user/User'
 
 const initialState = {
     list: new UserCollection(),
@@ -62,5 +62,8 @@ export function users(state = initialState, action) {
         default:
             return state
     }
+}
 
+export function getUserById(state, id) {
+    return state.users.list.find(id)
 }

@@ -1,7 +1,7 @@
-import user from '../api/userApi'
-import * as types from '../constants/actionTypes'
-import Response from '../api/response'
-import UserCollection from '../model/user/UserCollection'
+import user from '../../api/userApi'
+import * as types from '../../constants/actionTypes'
+import Response from '../../api/response'
+import UserCollection from '../../model/user/UserCollection'
 
 export function createUserSuccess(response) {
     const payload =  response.getPayload()

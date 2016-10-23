@@ -1,15 +1,15 @@
-import * as types from '../constants/actionTypes'
-import ClientCollection from '../model/client/ClientCollection'
+import * as types from '../../constants/actionTypes'
+import ClientCollection from '../../model/client/ClientCollection'
 
 const initialState = {
-    clientList: new ClientCollection()
+    list: new ClientCollection()
 }
 
 export function clients(state = initialState, action) {
     switch (action.type) {
         case types.FETCH_CLIENTS_SUCCESSFULLY:
             return Object.assign({}, state, {
-                clientList: action.payload
+                list: action.payload.clientCollection
             })
 
         case types.REMOVE_CLIENT_SUCCESSFULLY:
@@ -33,4 +33,16 @@ export function clients(state = initialState, action) {
             return state
     }
 
+}
+
+export function getClientList(state) {
+    "use strict";
+
+    return state.clients.list;
+}
+
+export function getClientById(state, id) {
+    "use strict";
+
+    return state.clients.list.get(id)
 }

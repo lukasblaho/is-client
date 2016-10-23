@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeClient} from '../../actions/clientAction'
+import {removeClient} from '../../store/client/action'
+import {getClientById} from '../../store/client/reducer'
 
 const RemoveClientTmp = ({currentClient, onDeleteClick}) => {
     return (
@@ -18,7 +19,7 @@ const RemoveClientTmp = ({currentClient, onDeleteClick}) => {
 
 export default connect(
     (state, ownProps) => {
-        const currentClient = state.clientList.get(ownProps.routeParams.id)
+        const currentClient = getClientById(state, ownProps.routeParams.id)
 
         return {
             currentClient : currentClient

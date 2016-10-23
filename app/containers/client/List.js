@@ -1,17 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import {head} from '../Common/TableHead'
-import {tableBody} from '../Common/TableBody'
-import {tableList} from '../Common/TableList'
-import {row as clientRow} from './include/ClientListTableRow'
-import {getClientsList} from '../../actions/clientAction'
+import {head} from '../../components/Common/TableHead'
+import {tableBody} from '../../components/Common/TableBody'
+import {tableList} from '../../components/Common/TableList'
+import {row as clientRow} from '../../components/Client/include/ClientListTableRow'
+import {fetchClientsList} from '../../store/client/action'
+import {getClientList} from  '../../store/client/reducer'
 
 const ListClient = React.createClass({
     componentWillMount()
     {
         let {dispatch} = this.props
-        dispatch(getClientsList())
+        dispatch(fetchClientsList())
     },
 
     render () {
@@ -40,6 +41,6 @@ const ListClient = React.createClass({
 })
 
 export default connect(state => ({
-    clientsList: state.clientList,
-    headerKeys: ['Number', 'Name', 'Quality']
+    clientsList: getClientList(state),
+    headerKeys: ['Id', 'Number', 'Name', 'Quality']
 }))(ListClient)

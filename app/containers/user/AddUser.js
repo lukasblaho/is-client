@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import UserForm from './include/UserForm'
-import {submitAddUserForm, USERFORM_TYPE_CREATE} from '../../actions/userAction'
+import UserForm from '../../components/User/include/UserForm'
+import {submitAddUserForm, USERFORM_TYPE_CREATE} from '../../store/user/action'
 
 const AddUserTpl = (props) => (
 	<div>

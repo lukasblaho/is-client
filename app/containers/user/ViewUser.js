@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {getUserById} from '../../store/user/reducer'
 
 const ViewUserTpl = ({currentUser}) => (
     <div>
@@ -14,7 +15,7 @@ const ViewUserTpl = ({currentUser}) => (
 var ViewUser = connect(
     (state, ownProps) => {
 
-        let currentUser = state.users.list.find(ownProps.routeParams.id)
+        let currentUser = getUserById(state, ownProps.routeParams.id)
 
         return {
             currentUser : currentUser

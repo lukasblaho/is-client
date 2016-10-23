@@ -1,5 +1,5 @@
 import {API_URL_PREFIX} from '../config'
-import {userCreateSuccess, userCreateFailure} from '../actions/userAction'
+import {userCreateSuccess, userCreateFailure} from '../store/user/action'
 
 export default {
     createUser(values) {

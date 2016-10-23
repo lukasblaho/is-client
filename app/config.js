@@ -1,1 +1,1 @@
-export const API_URL_PREFIX = 'http://api.storage_sys.loc';
+export const API_URL_PREFIX = 'http://api.is.dev';

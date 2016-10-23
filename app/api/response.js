@@ -1,5 +1,9 @@
 export default class Response {
     static parseJsonResponse(jsonResponse) {
+        if (typeof jsonResponse != "object") {
+            throw new Error('Incompatible type')
+        }
+
         self = new this
         self._response = jsonResponse
 
@@ -12,5 +16,13 @@ export default class Response {
 
     getPayload() {
         return this._response.payload
+    }
+
+    valid() { console.log(this)
+        if (!this.isOK()){
+            throw new Error('Response is not valid');
+        }
+
+        return true;
     }
 }

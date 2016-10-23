@@ -25,7 +25,7 @@ export default class UserCollection extends ArrayCollection {
         }).pop()
 
         if (!user) {
-            throw 'User not found by id'
+            throw new Error('User not found by id')
         }
 
         return user

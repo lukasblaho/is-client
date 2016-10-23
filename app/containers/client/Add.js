@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import ClientForm from './include/ClientForm'
-import {submitAddClientForm} from '../../actions/clientAction'
+import ClientForm from '../../components/Client/include/ClientForm'
+import {submitAddClientForm} from '../../store/client/action'
 
 const AddClientTpl = (props) => (
 	<div>
