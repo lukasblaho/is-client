@@ -1,4 +1,4 @@
-import * as types from '../../constants/actionTypes'
+import * as types from '../../constant/actionTypes'
 import ClientCollection from '../../model/client/ClientCollection'
 
 const initialState = {

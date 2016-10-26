@@ -1,6 +1,6 @@
-import user from '../../api/userApi'
-import * as types from '../../constants/actionTypes'
-import Response from '../../api/response'
+import user from '../../service/api/userApi'
+import * as types from '../../constant/actionTypes'
+import Response from '../../service/api/response'
 import UserCollection from '../../model/user/UserCollection'
 
 export function createUserSuccess(response) {

@@ -1,4 +1,4 @@
-import {API_URL_PREFIX} from '../config'
+import {API_URL_PREFIX} from '../../config'
 import Response from './response'
 
 export default {

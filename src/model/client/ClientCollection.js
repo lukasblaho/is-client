@@ -25,7 +25,7 @@ export default class ClientCollection extends ArrayCollection {
         }).pop()
 
         if (!client) {
-            throw new Error ('Client not found by id')
+            throw new Error ('client not found by id')
         }
 
         return client

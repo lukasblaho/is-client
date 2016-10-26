@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../../components/Report/include/Form'
+import Form from '../../component/report/include/Form'
 import {connect} from 'react-redux'
 import {submitCreateReport} from '../../store/report/action'
 import {getUserList} from '../../store/user/reducer'

@@ -1,5 +1,5 @@
 import React from 'react'
-import ListUser from '../../containers/user/ListUser'
+import ListUser from '../../container/user/ListUser'
 
 const User = React.createClass({
     render () {

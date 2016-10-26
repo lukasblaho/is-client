@@ -1,6 +1,6 @@
-import client from '../../api/clientApi'
-import * as types from '../../constants/actionTypes'
-import Response from '../../api/response'
+import client from '../../service/api/clientApi'
+import * as types from '../../constant/actionTypes'
+import Response from '../../service/api/response'
 import ClientCollection from '../../model/client/ClientCollection'
 
 export function createClientSuccessfully(response) {

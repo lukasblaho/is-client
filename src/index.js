@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Root from './containers/Root'
+import Root from './container/Root'
 import storeApp from './store/store'
 
 ReactDOM.render(

@@ -1,4 +1,4 @@
-import * as types from '../../constants/actionTypes'
+import * as types from '../../constant/actionTypes'
 import UserCollection from '../../model/user/UserCollection'
 import User from '../../model/user/User'
 

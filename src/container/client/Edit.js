@@ -1,5 +1,5 @@
 import React from 'react'
-import UserForm from '../../components/Client/include/ClientForm'
+import UserForm from '../../component/client/include/ClientForm'
 import {connect} from 'react-redux'
 import {submitAddUserForm} from '../../store/client/action'
 import {getClientById} from '../../store/client/reducer'

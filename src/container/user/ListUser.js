@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import {head} from '../../components/Common/TableHead'
-import {tableBody} from '../../components/Common/TableBody'
-import {row as userRow} from '../../components/User/include/UserListTableRow'
-import {tableList} from '../../components/Common/TableList'
+import {head} from '../../component/common/TableHead'
+import {tableBody} from '../../component/common/TableBody'
+import {row as userRow} from '../../component/user/include/UserListTableRow'
+import {tableList} from '../../component/common/TableList'
 import {getUserList} from '../../store/user/action'
 
 const ListUser = React.createClass({

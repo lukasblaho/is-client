@@ -4,27 +4,27 @@ import configureStore from '../store/store'
 import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 
-import App from '../components/App'
-import Home from '../components/Home'
-import NotFound from '../components/NotFound'
+import App from '../component/App'
+import Home from '../component/Home'
+import NotFound from '../component/NotFound'
 
 /* user */
-import User from '../components/User/User'
+import User from '../component/user/User'
 import AddUser from './user/AddUser'
 import EditUser from './user/EditUser'
 import RemoveUser from './user/RemoveUser'
 import ViewUser from './user/ViewUser'
 
 /* client */
-import Client from '../components/Client/Client'
+import Client from '../component/client/Client'
 import AddClient from './client/Add'
 import EditClient from './client/Edit'
 import RemoveClient from './client/Remove'
-import ViewClient from '../components/Client/View'
+import ViewClient from '../component/client/View'
 
 /* report */
-import Report from '../components/Report/Report'
-import AddReport from './Report/Add'
+import Report from '../component/report/Report'
+import AddReport from './report/Add'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
