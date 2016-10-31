@@ -14,12 +14,14 @@ const renderHidden = field =>
 const ClientFormTpl = (props) => {
     const {
         handleSubmit,
-        submitting
+        submitting,
+        title
     } = props
 
     return (
         <div className="row">
             <div className="col-md-12">
+                <h1>{title}</h1>
                 <form onSubmit={handleSubmit} className="form-horizontal">
                     <Field name="id" type="hidden" component={renderHidden} />
 

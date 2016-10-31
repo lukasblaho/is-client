@@ -1,27 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ClientForm from '../../component/client/include/ClientForm'
-import {submitAddClientForm} from '../../store/client/action'
+import {doCreateClient} from '../../store/client/action'
 
-const AddClientTpl = (props) => (
+const AddClient = (props) => (
 	<div>
-		<h1>Add client</h1>
-		<ClientForm {...props}/>
+		<ClientForm title="Add client" {...props}/>
 	</div>
 )
 
-const AddClient = connect(
+export default connect(
     state => {
         return {}
     },
     dispatch => {
         return {
             onSubmit : (values) => {
-                dispatch(submitAddClientForm(values))
+                dispatch(doCreateClient(values))
             }
         }
     }
-)(AddClientTpl)
-
-export default AddClient
+)(AddClient)
 

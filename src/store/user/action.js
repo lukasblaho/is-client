@@ -1,49 +1,78 @@
-import user from '../../service/api/userApi'
+import userApi from '../../service/api/userApi'
 import * as types from '../../constant/actionTypes'
-import Response from '../../service/api/response'
 import UserCollection from '../../model/user/UserCollection'
 
-export function createUserSuccess(response) {
-    const payload =  response.getPayload()
+export function doFetchUserList() {
+    return dispatch => userApi.fetchUsers()        
+        .then(response => dispatch((fetchUsersSuccess(response))))
+        .catch(error => dispatch(fetchUsersFailure(error)))
+}
+
+export function doFetchUser(id) {
+    return dispatch => userApi.getUser(id)
+        .then(json => dispatch(getUserSuccess(json)))
+        .catch(error => dispatch(getUserFailure(error)))
+}
+
+export function doCreateUser(values) {
+    return dispatch => userApi.createUser(values)
+        .then(response => dispatch(createUserSuccess(response)))
+        .catch(error => dispatch(createUserFailure(error)))
+}
+
+export function doUpdateUser(values) {
+    return dispatch => userApi.updateUser(values)
+        .then(response => dispatch(updateUserSuccess(response)))
+        .catch(error => dispatch(updateUserFailure(error)))
+}
+
+export function doRemoveUser(id) {
+    return dispatch => userApi.removeUser(id)
+        .then(json => dispatch(removeUserSuccess(id)))
+        .catch(error => dispatch(removeUserFailure()))
+}
+
+function createUserSuccess(response) {
+    const payload = response.getPayload()
 
     return {
         type: types.CREATE_USER_SUCCESSFULLY,
-        payload : payload,
-        redirect : {
+        payload: payload,
+        redirect: {
             /** @TODO - obtain uri from router */
             url: '/users/view/' + payload.uuid
         }
     }
 }
 
-export function createUserFailure(error) {
+function createUserFailure(error) {
     return {
         type: types.CREATE_USER_FAILURE,
         error
     }
 }
 
-export function updateUserSuccess(response) {
+function updateUserSuccess(response) {
     const payload = response.getPayload()
 
     return {
         type: types.UPDATE_USER_SUCCESSFULLY,
-        payload : payload,
-        redirect : {
+        payload: payload,
+        redirect: {
             /** @TODO - obtain uri from router */
             url: '/users/view/' + payload.uuid
         }
     }
 }
 
-export function updateUserFailure(error) {
+function updateUserFailure(error) {
     return {
         type: types.UPDATE_USER_FAILURE,
         error
     }
 }
 
-export function fetchUsersSuccess(response) {
+function fetchUsersSuccess(response) {
 
     var payload = {}
 
@@ -58,28 +87,28 @@ export function fetchUsersSuccess(response) {
     }
 }
 
-export function fetchUsersFailure(error) {
+function fetchUsersFailure(error) {
     return {
         type: types.FETCH_USERS_FAILURE,
         error
     }
 }
 
-export function getUserSuccess(response) {
+function getUserSuccess(response) {
     return {
         type: types.FETCH_USER_SUCCESSFULLY,
         payload: response
     }
 }
 
-export function getUserFailure(error) {
+function getUserFailure(error) {
     return {
         type: types.FETCH_USER_FAILURE,
         error
     }
 }
 
-export function removeUserSuccess(id) {
+function removeUserSuccess(id) {
     return {
         type: types.REMOVE_USER_SUCCESSFULLY,
         payload: {
@@ -87,54 +116,15 @@ export function removeUserSuccess(id) {
                 id: id
             }
         },
-        redirect : {
+        redirect: {
             /** @TODO - obtain uri from router */
             url: '/users'
         }
     }
 }
 
-export function removeUserFailure() {
+function removeUserFailure() {
     return {
         type: types.REMOVE_USER_FAILURE
-    }
-}
-
-export function removeUser(id) {
-    return dispatch => user.removeUser(id)
-        .then(json => dispatch(removeUserSuccess(id)))
-        .catch(error => dispatch(removeUserFailure()))
-}
-
-export function getUserList() {
-    return dispatch => user.fetchUser()
-        .then(json => Response.parseJsonResponse(json))
-        .then(response => dispatch((fetchUsersSuccess(response))))
-        .catch(error => dispatch(fetchUsersFailure(error)))
-}
-
-export function getUser(id) {
-    return dispatch => user.getUser(id)
-        .then(json => dispatch(getUserSuccess(json)))
-        .catch(error => dispatch(getUserFailure(error)))
-}
-
-export const USERFORM_TYPE_CREATE = 'user::add'
-export const USERFORM_TYPE_UPDATE = 'user::update'
-
-export function submitAddUserForm(values, type) {
-    switch (type) {
-        default:
-        case USERFORM_TYPE_CREATE:
-            return dispatch => user.createUser(values)
-                .then(json => Response.parseJsonResponse(json))
-                .then(response => dispatch(createUserSuccess(response)))
-                .catch(error => dispatch(createUserFailure(error)))
-
-        case USERFORM_TYPE_UPDATE:
-            return dispatch => user.updateUser(values)
-                .then(json => Response.parseJsonResponse(json))
-                .then(response => dispatch(updateUserSuccess(response)))
-                .catch(error => dispatch(updateUserFailure(error)))
     }
 }

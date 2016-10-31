@@ -5,14 +5,14 @@ import {head} from '../../component/common/TableHead'
 import {tableBody} from '../../component/common/TableBody'
 import {tableList} from '../../component/common/TableList'
 import {row as clientRow} from '../../component/client/include/ClientListTableRow'
-import {fetchClientsList} from '../../store/client/action'
+import {doFetchClientList} from '../../store/client/action'
 import {getClientList} from  '../../store/client/reducer'
 
 const ListClient = React.createClass({
     componentWillMount()
     {
         let {dispatch} = this.props
-        dispatch(fetchClientsList())
+        dispatch(doFetchClientList())
     },
 
     render () {

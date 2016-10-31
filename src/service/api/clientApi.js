@@ -34,6 +34,7 @@ export default {
         return fetch(API_URL_PREFIX + '/v1/client')
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     },
 
     getClient(id) {

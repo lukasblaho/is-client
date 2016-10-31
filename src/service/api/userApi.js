@@ -1,4 +1,5 @@
 import {API_URL_PREFIX} from '../../config'
+import Response from './response'
 
 export default {
     createUser(values) {
@@ -12,6 +13,7 @@ export default {
         })
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     },
 
     updateUser(values) {
@@ -25,18 +27,21 @@ export default {
         })
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     },
 
-    fetchUser() {
+    fetchUsers() {
         return fetch(API_URL_PREFIX + '/v1/user')
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     },
 
     getUser(id) {
         return fetch(API_URL_PREFIX + '/v1/user/' + id)
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     },
 
     removeUser(id) {
@@ -45,5 +50,6 @@ export default {
         })
             .then(status)
             .then(response => response.json())
+            .then(json => Response.parseJsonResponse(json))
     }
 }

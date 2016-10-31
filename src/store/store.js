@@ -12,7 +12,7 @@ export default function configureStore() {
         rootReducer,
         applyMiddleware(
             thunkMiddleware,
-            errorCatcherMiddleware,
+            //errorCatcherMiddleware,
             loggerMiddleware,
             redirectMiddleware
         )

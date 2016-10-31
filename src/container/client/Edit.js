@@ -1,22 +1,26 @@
 import React from 'react'
 import UserForm from '../../component/client/include/ClientForm'
-import {connect} from 'react-redux'
-import {submitAddUserForm} from '../../store/client/action'
-import {getClientById} from '../../store/client/reducer'
+import { connect } from 'react-redux'
+import { doUpdateClient } from '../../store/client/action'
+import { getClientById } from '../../store/client/reducer'
+import { doFetchClientList } from '../../store/client/action'
 
-const EditClientTpl = (props) => {
+const EditClientTpl = React.createClass({
+    componentWillMount() {
+        let {dispatch} = this.props
 
-    const {currentClient} = props
+        dispatch(doFetchClientList())
+    },
 
-    return (
-        <div className="container">
-            <div className="row">
-                <h2>Edit client {currentClient.getNumber()} {currentClient.getName()}</h2>
-            </div>
-            <UserForm {...props}/>
-        </div>
-    )
-}
+    render() {
+        const {currentClient} = this.props
+        const title = "Edit client " + currentClient.getNumber() + " " + currentClient.getName()
+
+        return (
+            <UserForm title={title} {...this.props} />
+        )
+    }
+})
 
 const EditClient = connect(
     (state, ownProp) => {
@@ -34,8 +38,9 @@ const EditClient = connect(
     },
     (dispatch) => {
         return {
+            dispatch,
             onSubmit: (values) => {
-                return dispatch(submitAddUserForm(values))
+                return dispatch(doUpdateClient(values))
             }
         }
     }

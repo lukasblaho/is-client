@@ -44,13 +44,20 @@ const UserFormTpl = (props) => {
                         <label className="col-sm-2 control-label">Users</label>
                         <Field name="userId" options={userOptions} component={renderSelect} type="select"/>
                     </div>
+
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Client</label>
                         <Field name="clientId" options={clientOptions} component={renderSelect} type="select"/>
                     </div>
+
                     <div className="form-group">
-                        <label className="col-sm-2 control-label">Email</label>
-                        <Field name="email" component={renderInput} type="text" placeholder="Email"/>
+                        <label className="col-sm-2 control-label">Palettes count</label>
+                        <Field name="palettesCount" component={renderInput} type="text" placeholder="Palettes count"/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className="col-sm-2 control-label">Palettes count OT</label>
+                        <Field name="palettesCountOT" component={renderInput} type="text" placeholder="Palettes count overtime"/>
                     </div>
 
                     <div className="form-group">

@@ -1,15 +1,26 @@
 import React from 'react';
 import Form from '../../component/report/include/Form'
-import {connect} from 'react-redux'
-import {submitCreateReport} from '../../store/report/action'
-import {getUserList} from '../../store/user/reducer'
-import {getClientList} from '../../store/client/reducer'
+import { connect } from 'react-redux'
+import { doCreateReport } from '../../store/report/action'
+import { getUserList } from '../../store/user/reducer'
+import { getClientList } from '../../store/client/reducer'
+import { doFetchClientList } from '../../store/client/action'
+import { doFetchUserList } from '../../store/user/action'
 
-const AddReport = (props) => (
-    <div>
-        <Form {...props} />
-    </div>
-)
+const AddReport = React.createClass({
+    componentWillMount() {
+        let {dispatch} = this.props
+
+        dispatch(doFetchUserList())
+        dispatch(doFetchClientList())
+    },
+
+    render() {
+        return (
+            <Form {...this.props} />
+        )
+    }
+})
 
 export default connect(
     (state) => {
@@ -23,7 +34,8 @@ export default connect(
     },
     (dispatch) => {
         return {
-            onSubmit: (values) => dispatch(submitCreateReport(values))
+            dispatch,
+            onSubmit: (values) => dispatch(doCreateReport(values)),
         }
     }
 )(AddReport)

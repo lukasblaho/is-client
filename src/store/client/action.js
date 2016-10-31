@@ -1,97 +1,112 @@
-import client from '../../service/api/clientApi'
+import clientApi from '../../service/api/clientApi'
 import * as types from '../../constant/actionTypes'
-import Response from '../../service/api/response'
 import ClientCollection from '../../model/client/ClientCollection'
 
-export function createClientSuccessfully(response) {
+export function doCreateClient(values) {
+    return dispatch => clientApi.createClient(values)
+        .then(response => dispatch(createClientSuccessfully(response)))
+        .catch(error => dispatch(createClientFailure(error)))
+}
+
+export function doFetchClientList() {
+    return dispatch => clientApi.fetchClients()
+        .then((response) => {
+            if (!response.isOK()) {
+                throw new Error(response.getError())
+            }
+
+            const payload = {
+                clientCollection: ClientCollection.fromArray(response.getPayload())
+            }
+
+            dispatch({
+                type: types.FETCH_CLIENTS_SUCCESSFULLY,
+                payload: payload
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: types.FETCH_CLIENTS_FAILURE,
+                error
+            })
+        })
+}
+
+export function doFetchClient(id) {
+    return dispatch => clientApi.getClient(id)
+        .then(json => dispatch(getUserSuccess(json)))
+        .catch(error => dispatch(getUserFailure(error)))
+}
+
+export function doUpdateClient(values) {
+    return dispatch => clientApi.createClient(values)
+        .then(response => dispatch(updateClientSuccessfully(response)))
+        .catch(error => dispatch(updateClientFailure(error)))
+}
+
+export function doRemoveClient(id) {
+    return dispatch => clientApi.removeClient(id)
+        .then(response => dispatch({
+            type: types.REMOVE_CLIENT_SUCCESSFULLY,
+            payload: id,
+            redirect: {
+                url: '/clients'
+            }
+        }))
+        .catch(error => dispatch({
+            type: types.REMOVE_CLIENT_FAILURE
+        }))
+}
+
+function createClientSuccessfully(response) {
     return {
         type: types.CREATE_CLIENT_SUCCESSFULLY,
-        payload : response,
-        redirect : {
+        payload: response,
+        redirect: {
             /** @TODO - obtain uri from router */
-            url: '/clients/view/'+response.data.id
+            url: '/clients/view/' + response.data.id
         }
     }
 }
 
-export function createClientFailure(error) {
+function createClientFailure(error) {
     return {
         type: types.CREATE_CLIENT_FAILURE,
         error
     }
 }
 
-export function fetchClientsSuccessfully(response) { console.log(response)
-    const payload = {}
-
-    if (response.isOK()) {
-        payload.clientCollection = ClientCollection.fromArray(response.getPayload())
-    }
-
+function updateClientSuccessfully(response) {
     return {
-        type: types.FETCH_CLIENTS_SUCCESSFULLY,
-        payload: payload
+        type: types.UPDATE_CLIENT_SUCCESSFULLY,
+        payload: response,
+        redirect: {
+            /** @TODO - obtain uri from router */
+            url: '/clients/view/' + response.data.id
+        }
     }
 }
 
-export function fetchClientsFailure(error) {
+function updateClientFailure(error) {
     return {
-        type: types.FETCH_CLIENTS_FAILURE,
+        type: types.UPDATE_CLIENT_FAILURE,
         error
     }
 }
 
-export function getUserSuccess(response) {
+function getUserSuccess(response) {
     return {
         type: types.FETCH_USER_SUCCESSFULLY,
         payload: response
     }
 }
 
-export function getUserFailure(error) {
+function getUserFailure(error) {
     return {
         type: types.FETCH_USER_FAILURE,
         error
     }
 }
 
-export function removeClientSuccessfully(id) {
-    return {
-        type: types.REMOVE_CLIENT_SUCCESSFULLY,
-        payload: id,
-        redirect: {
-            url: '/clients'
-        }
-    }
-}
 
-export function removeClientFailure(){
-    return {
-        type: types.REMOVE_CLIENT_FAILURE
-    }
-}
 
-export function removeClient(id) {
-    return dispatch => client.removeClient(id)
-        .then(() => dispatch(removeClientSuccessfully(id)))
-        .catch(() => dispatch(removeClientFailure()))
-}
-
-export function fetchClientsList() {
-    return dispatch => client.fetchClients()
-        .then(json => Response.parseJsonResponse(json))
-        .then(response => dispatch(fetchClientsSuccessfully(response)))
-        .catch(error => dispatch(fetchClientsFailure(error)))
-}
-
-export function getClient(id) {
-    return dispatch => client.getClient(id)
-        .then(json => dispatch(getUserSuccess(json)))
-        .catch(error => dispatch(getUserFailure(error)))
-}
-
-export function submitAddClientForm(values) {
-    return dispatch => client.createClient(values)
-        .then(response => dispatch(createClientSuccessfully(response)))
-        .catch(error => dispatch(createClientFailure(error)))
-}

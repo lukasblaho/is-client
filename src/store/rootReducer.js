@@ -9,7 +9,6 @@ const rootReducer = combineReducers({
     clients,
     form: formReducer,
     routing: routerReducer
-
 })
 
 export default rootReducer

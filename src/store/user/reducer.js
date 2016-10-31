@@ -4,7 +4,7 @@ import User from '../../model/user/User'
 
 const initialState = {
     list: new UserCollection(),
-    isFetching: false
+    fetchedAt: null
 }
 
 export function users(state = initialState, action) {
@@ -24,7 +24,8 @@ export function users(state = initialState, action) {
             }
 
             return Object.assign({}, state, {
-                list: list
+                list: list,
+                fetchedAt: Date.now()
             })
 
         case types.UPDATE_USER_SUCCESSFULLY:
