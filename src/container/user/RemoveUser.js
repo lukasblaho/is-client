@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {removeUser} from '../../store/user/action'
-import {Link} from 'react-router'
-import {getUserById} from '../../store/user/reducer'
+import { connect } from 'react-redux'
+import { doRemoveUser } from '../../store/user/action'
+import { Link } from 'react-router'
+import { getUserById } from '../../store/user/reducer'
 
 const RemoveUserTmp = ({currentUser, onDeleteClick}) => {
     return (
@@ -33,7 +33,7 @@ const RemoveUser = connect(
     dispatch => {
         return {
             onDeleteClick: (id) => {
-                dispatch(removeUser(id))
+                dispatch(doRemoveUser(id))
             }
         }
     }

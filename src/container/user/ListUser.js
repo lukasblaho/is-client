@@ -6,6 +6,7 @@ import { tableBody } from '../../component/common/TableBody'
 import { row as userRow } from '../../component/user/include/UserListTableRow'
 import { tableList } from '../../component/common/TableList'
 import { doFetchUserList } from '../../store/user/action'
+import { getUserList } from '../../store/user/reducer'
 
 const ListUser = React.createClass({
     getDefaultProps() {
@@ -48,6 +49,6 @@ const ListUser = React.createClass({
 
 export default connect(
     state => ({
-        users: state.users.list
+        users: getUserList(state)
     })
 )(ListUser)

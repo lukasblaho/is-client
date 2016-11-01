@@ -10,19 +10,23 @@ export default class Response {
         return self
     }
 
-    isOK() {console.log()
-        return this._response.statusCode === 200
+    isOK() {
+        return this._response.statusCode === 200 || this._response.statusCode === 201
     }
 
     getPayload() {
         return this._response.payload
     }
 
-    valid() { console.log(this)
+    valid() {
         if (!this.isOK()){
             throw new Error('Response is not valid');
         }
 
         return true;
+    }
+
+    toString() {
+        return JSON.stringify(this._response)
     }
 }
