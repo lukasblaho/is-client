@@ -19,6 +19,5 @@ export default connect(
         return {
             currentClient
         }
-    },
-    (dispatch) => {}
+    }
 )(ViewClient)
