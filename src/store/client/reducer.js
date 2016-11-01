@@ -2,21 +2,21 @@ import * as types from '../../constant/actionTypes'
 import ClientCollection from '../../model/client/ClientCollection'
 
 const initialState = {
-    list: new ClientCollection()
+    list: []
 }
 
 export function clients(state = initialState, action) {
     switch (action.type) {
-        case types.FETCH_CLIENTS_SUCCESSFULLY:
+        case types.FETCH_CLIENTS:
             return Object.assign({}, state, {
-                list: action.payload.clientCollection
+                list: action.payload
             })
 
-        case types.REMOVE_CLIENT_SUCCESSFULLY:
+        case types.REMOVE_CLIENT:
             return Object.assign({}, state, {
             })
 
-        case types.CREATE_CLIENT_SUCCESSFULLY:
+        case types.CREATE_CLIENT:
             var newList = state.list
             newList.push({
                 id: action.payload.data.id,
@@ -35,9 +35,9 @@ export function clients(state = initialState, action) {
 }
 
 export function getClientList(state) {
-    return state.clients.list;
+    return ClientCollection.fromArray(state.clients.list)
 }
 
 export function getClientById(state, id) {
-    return state.clients.list.get(id)
+    return getClientList(state).get(id)
 }

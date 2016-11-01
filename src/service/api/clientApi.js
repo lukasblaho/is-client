@@ -1,5 +1,6 @@
 import {API_URL_PREFIX} from '../../config'
 import Response from './response'
+import ApiError from './apiError'
 
 export default {
     createClient(values) {
@@ -12,12 +13,15 @@ export default {
             body: JSON.stringify(values)
         })
             .then(status)
-            .then(response => {
-                response = Response.parseJsonResponse(response.json())
+            .then(response => response.json())
+            .then(json => {
+                let apiResponse = Response.parseJsonResponse(json)
 
-                if (response.valid()) {
-                    return response
+                if (!apiResponse.isOK()) {
+                    throw new ApiError(json)
                 }
+
+                return apiResponse
             })
     },
 
@@ -28,19 +32,45 @@ export default {
         })
             .then(status)
             .then(response => response.json())
+            .then(json => {
+                let apiResponse = Response.parseJsonResponse(json)
+
+                if (!apiResponse.isOK()) {
+                    throw new ApiError(json)
+                }
+
+                return apiResponse
+            })
     },
 
     fetchClients() {
         return fetch(API_URL_PREFIX + '/v1/client')
             .then(status)
             .then(response => response.json())
-            .then(json => Response.parseJsonResponse(json))
+            .then(json => {
+                let apiResponse = Response.parseJsonResponse(json)
+
+                if (!apiResponse.isOK()) {
+                    throw new ApiError(json)
+                }
+
+                return apiResponse
+            })
     },
 
     getClient(id) {
         return fetch(API_URL_PREFIX + '/v1/client/' + id)
             .then(status)
             .then(response => response.json())
+            .then(json => {
+                let apiResponse = Response.parseJsonResponse(json)
+
+                if (!apiResponse.isOK()) {
+                    throw new ApiError(json)
+                }
+
+                return apiResponse
+            })
     },
 
     removeClient(id) {
@@ -48,6 +78,15 @@ export default {
             method: 'delete'
         })
             .then(status)
-            .then(response => Response.parseJsonResponse(response.json()))
+            .then(response => response.json())
+            .then(json => {
+                let apiResponse = Response.parseJsonResponse(json)
+
+                if (!apiResponse.isOK()) {
+                    throw new ApiError(json)
+                }
+
+                return apiResponse
+            })
     }
 }

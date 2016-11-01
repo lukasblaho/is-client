@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeClient} from '../../store/client/action'
+import {doRemoveClient} from '../../store/client/action'
 import {getClientById} from '../../store/client/reducer'
 
 const RemoveClientTmp = ({currentClient, onDeleteClick}) => {
@@ -28,7 +28,7 @@ export default connect(
     dispatch => {
         return {
             onDeleteClick: (id) => {
-                dispatch(removeClient(id))
+                dispatch(doRemoveClient(id))
             }
         }
     }
