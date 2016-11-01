@@ -33,14 +33,14 @@ export function users(state = initialState, action) {
         case types.UPDATE_USER:
             let userData = action.payload
             console.log(state)
-            var list = state.list
+            var newlist = state.list
 
-            let key = getUserKey(list, userData.uuid)
+            let key = getUserKey(newlist, userData.uuid)
             console.log(key)
-            list[key] = userData
+            newlist[key] = userData
 
             return Object.assign({}, state, {
-                list: list
+                list: newlist
             })
 
         case types.FETCH_USER:

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {Provider} from 'react-redux'
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import configureStore from '../store/store'
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
-import {syncHistoryWithStore} from 'react-router-redux'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 import App from '../component/App'
 import Home from '../component/Home'
@@ -26,7 +26,7 @@ import ViewClient from '../component/client/View'
 import Report from '../component/report/Report'
 import AddReport from './report/Add'
 
-const store = configureStore()
+const store = configureStore() 
 const history = syncHistoryWithStore(browserHistory, store)
 
 export default class Root extends Component {
@@ -35,24 +35,24 @@ export default class Root extends Component {
             <Provider store={store}>
                 <Router history={history}>
                     <Route path="/" component={App}>
-                        <IndexRoute component={Home}/>
+                        <IndexRoute component={Home} />
                         <Route path="users" component={User}>
-                            <Route path="add" component={AddUser}/>
-                            <Route path="edit/:id" component={EditUser}/>
-                            <Route path="remove/:id" component={RemoveUser}/>
-                            <Route path="view/:id" component={ViewUser}/>
+                            <Route path="add" component={AddUser} />
+                            <Route path="edit/:id" component={EditUser} />
+                            <Route path="remove/:id" component={RemoveUser} />
+                            <Route path="view/:id" component={ViewUser} />
                         </Route>
                         <Route path="clients" component={Client}>
-                            <Route path="add" component={AddClient}/>
-                            <Route path="edit/:id" component={EditClient}/>
-                            <Route path="remove/:id" component={RemoveClient}/>
-                            <Route path="view/:id" component={ViewClient}/>
+                            <Route path="add" component={AddClient} />
+                            <Route path="edit/:id" component={EditClient} />
+                            <Route path="remove/:id" component={RemoveClient} />
+                            <Route path="view/:id" component={ViewClient} />
                         </Route>
                         <Route path="reports" component={Report}>
-                            <Route path="add" component={AddReport}/>
+                            <Route path="add" component={AddReport} />
                         </Route>
                     </Route>
-                    <Route path="*" component={NotFound}/>
+                    <Route path="*" component={NotFound} />
                 </Router>
             </Provider>
         )
