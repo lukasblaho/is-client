@@ -25,6 +25,7 @@ import ViewClient from '../component/client/View'
 /* report */
 import Report from '../component/report/Report'
 import AddReport from './report/Add'
+import ViewReport from './report/View'
 
 const store = configureStore() 
 const history = syncHistoryWithStore(browserHistory, store)
@@ -50,6 +51,7 @@ export default class Root extends Component {
                         </Route>
                         <Route path="reports" component={Report}>
                             <Route path="add" component={AddReport} />
+                            <Route path="view" component={ViewReport} />
                         </Route>
                     </Route>
                     <Route path="*" component={NotFound} />

@@ -11,3 +11,7 @@ export const UPDATE_CLIENT = 'client::update'
 export const FETCH_CLIENTS = 'client::fetch'
 export const FETCH_CLIENT = 'client::fetch_one'
 export const REMOVE_CLIENT = 'client::remove'
+
+export const CREATE_REPORT = 'report::create'
+export const FETCH_REPORT_LIST = 'report::fetch_list'
+export const FETCH_REPORT = 'report::fetch_once'
