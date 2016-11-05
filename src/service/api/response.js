@@ -1,5 +1,17 @@
+import ApiError from './apiError'
+
 export default class Response {
-    static parseJsonResponse(jsonResponse) {
+    static factory(input) {
+        const apiResponse = this._parse(input)
+
+        if (!apiResponse.isOK()) {
+            throw new ApiError(input)
+        }
+
+        return apiResponse
+    }
+
+    static _parse(jsonResponse) {
         if (typeof jsonResponse !== "object") {
             throw new Error('Incompatible type')
         }
@@ -19,7 +31,7 @@ export default class Response {
     }
 
     valid() {
-        if (!this.isOK()){
+        if (!this.isOK()) {
             throw new Error('Response is not valid');
         }
 

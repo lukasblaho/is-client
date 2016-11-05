@@ -1,6 +1,5 @@
 import {API_URL_PREFIX} from '../../config'
 import Response from './response'
-import ApiError from './apiError'
 
 export default {
     createClient(values) {
@@ -14,15 +13,7 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     editClients(values) {
@@ -32,45 +23,21 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     fetchClients() {
         return fetch(API_URL_PREFIX + '/v1/client')
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     getClient(id) {
         return fetch(API_URL_PREFIX + '/v1/client/' + id)
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     removeClient(id) {
@@ -79,14 +46,6 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     }
 }

@@ -1,6 +1,5 @@
 import {API_URL_PREFIX} from '../../config'
 import Response from './response'
-import ApiError from './apiError'
 
 export default {
     createUser(values) {
@@ -14,15 +13,7 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     updateUser(values) {
@@ -36,45 +27,21 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     fetchUsers() {
         return fetch(API_URL_PREFIX + '/v1/user')
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)                    
-                }
-
-                return apiResponse;
-            })
+            .then(json => Response.factory(json))
     },
 
     getUser(id) {
         return fetch(API_URL_PREFIX + '/v1/user/' + id)
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     },
 
     removeUser(id) {
@@ -83,14 +50,6 @@ export default {
         })
             .then(status)
             .then(response => response.json())
-            .then(json => {
-                let apiResponse = Response.parseJsonResponse(json)
-
-                if (!apiResponse.isOK()) {
-                    throw new ApiError(json)
-                }
-
-                return apiResponse
-            })
+            .then(json => Response.factory(json))
     }
 }
