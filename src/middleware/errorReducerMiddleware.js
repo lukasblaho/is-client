@@ -1,4 +1,4 @@
-import ApiError from '../service/api/apiError'
+import ApiError from '../service/api/helper/apiError'
 
 export const errorReducerMiddleware = (store) => next => action => {
     const {payload, error} = action

@@ -1,5 +1,5 @@
 import {API_URL_PREFIX} from '../../config'
-import Response from './response'
+import Response from './helper/response'
 
 export default {
     createClient(values) {
