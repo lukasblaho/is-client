@@ -1,71 +1,69 @@
 import * as types from '../../constant/actionTypes'
 import UserCollection from '../../model/user/UserCollection'
 import User from '../../model/user/User'
+import reducerFactory from '../../service/reducerFactory'
 
-const initialState = {
-    list: [],
-    fetchedAt: null
-}
+export const users = reducerFactory({
+    initialState: {
+        list: [],
+        fetchedAt: null
+    },
 
-export function users(state = initialState, action) {
-    switch (action.type) {
-        case types.CREATE_USER:
-            if (action.error) {
-                return state;
-            }
-
-            var list = state.list;
-            let user = User.createFromObject(action.payload)
-            list.add(user)
-
-            return Object.assign({}, state, {
-                list: list
-            })
-
-        case types.FETCH_USERS:
-            list = action.payload
-
-            return Object.assign({}, state, {
-                list: list,
-                fetchedAt: Date.now()
-            })
-
-        case types.UPDATE_USER:
-            let userData = action.payload
-            console.log(state)
-            var newlist = state.list
-
-            let key = getUserKey(newlist, userData.uuid)
-            console.log(key)
-            newlist[key] = userData
-
-            return Object.assign({}, state, {
-                list: newlist
-            })
-
-        case types.FETCH_USER:
-            return Object.assign({}, state, {
-                currentUser: action.payload.data
-            })
-
-        case types.REMOVE_USER:
-            return Object.assign({}, state, {
-                list: state.list
-            })
-
-        case 'ERROR_ACTION': {
-            return Object.assign({}, state, {
-                error: true,
-                errorCode: action.errorCode,
-                errorMessage: action.errorMessage
-            })
-
+    [types.CREATE_USER](state, action) {
+        if (action.error) {
+            return state;
         }
 
-        default:
-            return state
+        var list = state.list;
+        let user = User.createFromObject(action.payload)
+        list.add(user)
+
+        return {
+            list: list
+        }
+    },
+
+    [types.FETCH_USERS](state, action) {
+        let newList = action.payload
+
+        return {
+            list: newList,
+            fetchedAt: Date.now()
+        }
+    },
+
+    [types.UPDATE_USER](state, action) {
+        let userData = action.payload
+        var newlist = state.list
+
+        let key = getUserKey(newlist, userData.uuid)
+        newlist[key] = userData
+
+        return {
+            list: newlist
+        }
+    },
+
+    [types.FETCH_USER](state, action) {
+        return {
+            currentUser: action.payload.data
+        }
+    },
+
+    [types.REMOVE_USER](state, action) {
+        return {
+            list: state.list
+        }
+    },
+
+    'ERROR_ACTION'(state, action) {
+        return {
+            error: true,
+            errorCode: action.errorCode,
+            errorMessage: action.errorMessage
+        }
     }
-}
+})
 
 export function getUserList(state) {
     return UserCollection.fromArray(state.users.list)
@@ -81,7 +79,7 @@ function getUserKey(list, id) {
     list.forEach((v, i) => {
         if (v.uuid === id) {
             key = i
-        } 
+        }
     })
     return key
 }
