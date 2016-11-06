@@ -1,14 +1,20 @@
 import React from 'react'
+import TableHead from './TableHead'
+import TableBody from './TableBody'
 
-export const tableList = (thead, tbody) => class TableList extends React.Component {
+export default class TableList extends React.Component {
     render() {
+        const { datasource, headerKeys, renderRowComponent } = this.props
+
         return (
             <table className="table table-striped">
-                {thead}
-                {tbody}
+                <TableHead headerKeys={headerKeys} />
+                <TableBody
+                    datasource={datasource}
+                    renderRowComponent={renderRowComponent}
+                    columnCount={headerKeys.length}
+                    />
             </table>
         )
     }
 }
-
-export default tableList

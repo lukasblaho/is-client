@@ -1,21 +1,25 @@
 import React from 'react'
 
-export const tableBody = (rows) => {
-    if (!rows.length) {
+export default class TableBody extends React.Component {
+    render() {
+        const { datasource, renderRowComponent, columnCount } = this.props
+
+        if (!datasource.length) {
+            return (
+                <tbody>
+                    <tr><td colSpan={columnCount}>
+                        There is empty datasource
+                </td></tr>
+                </tbody>
+            )
+        }
+
+        const rows = datasource.map(item => renderRowComponent(item))
+
         return (
             <tbody>
-                <tr><td colSpan="5">
-                    There no users to show
-                </td></tr>
+                {rows}
             </tbody>
         )
     }
-
-    return (
-        <tbody>
-        {rows}
-        </tbody>
-    )
 }
-
-export default tableBody

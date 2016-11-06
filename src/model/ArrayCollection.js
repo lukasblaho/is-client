@@ -14,6 +14,14 @@ export default class ArrayCollection {
         this._data.forEach(callback)
     }
 
+    length() {
+        return this._data.length
+    }
+
+    map(callback) {
+        return this._data.map(callback)
+    }
+
     static fromArray(responseData) {
         return new this(responseData)
     }

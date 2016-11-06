@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { head } from '../../component/common/TableHead'
-import { tableBody } from '../../component/common/TableBody'
 import { row as userRow } from '../../component/user/include/UserListTableRow'
-import { tableList } from '../../component/common/TableList'
+import TableList from '../../component/common/TableList'
 import { doFetchUserList } from '../../store/user/action'
 import { getUserList } from '../../store/user/reducer'
 
@@ -23,13 +21,6 @@ const ListUser = React.createClass({
     render() {        
         let {users, headerKeys} = this.props
 
-        const rows = []
-        users.forEach((user) => {
-            rows.push(userRow(user))
-        })
-
-        var TableList = tableList(head(headerKeys), tableBody(rows))
-
         return (
             <div className="container">
                 <div className="row show-grid">
@@ -40,7 +31,11 @@ const ListUser = React.createClass({
                     <div className="button-group">
                         <Link className="btn btn-primary" to="/users/add">Add new user</Link>
                     </div>
-                    <TableList />
+                    <TableList 
+                        datasource={users}
+                        headerKeys={headerKeys}
+                        renderRowComponent={userRow}                    
+                    />
                 </div>
             </div>
         )

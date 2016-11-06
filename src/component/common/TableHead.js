@@ -1,18 +1,19 @@
 import React from 'react'
 
-export const head = (headerKeys) => {
-    var th = []
-    if (headerKeys.length) {
-        headerKeys.forEach((value, index) => {
-            th.push(<th key={index}>{value}</th>)
-        })
-    }
+export default class TableHead extends React.Component {
+    render() {
+        const {headerKeys} = this.props
 
-    return (
-        <thead>
-        <tr>
-            {th}
-        </tr>
-        </thead>
-    )
+        var th = headerKeys.map((value, index) =>
+            <th key={index}>{value}</th>
+        )
+
+        return (
+            <thead>
+                <tr>
+                    {th}
+                </tr>
+            </thead>
+        )
+    }
 }
